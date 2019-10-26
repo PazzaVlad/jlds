@@ -1,0 +1,21 @@
+{
+  "name": "jldb",
+  "version": "1.0.0",
+  "description": "Simple file database for storing list in JSON format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "json",
+    "list",
+    "database"
+  ],
+  "author": "Vlad Harb",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "lodash": "^4.17.15",
+    "nanoid": "^2.1.6"
+  }
+}
