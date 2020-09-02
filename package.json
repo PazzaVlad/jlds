@@ -11,6 +11,7 @@
     "list",
     "database"
   ],
+  "type": "module",
   "author": "Vlad Harb",
   "license": "MIT",
   "dependencies": {
