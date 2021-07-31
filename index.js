@@ -40,6 +40,28 @@ const fetchList = async (path) => {
 	}
 }
 
+const updateItem = async (path, id, newData) => {
+	const list = await fetchList(path)
+
+	const newList = list.map((obj) => {
+		if (obj._id === id) {
+			return { 
+				_id: obj._id,  
+				_timestamp: obj._timestamp,
+				...newData 
+			}
+		} else {
+			return obj
+		}
+	})
+
+	const processedStr = newList.map((data) => JSON.stringify(data)).join('\n')
+
+	await fse.writeFile(path, processedStr)
+
+	return newList
+}
+
 const removeItem = async (path, id) => {
 	const list = await fetchList(path)
 
@@ -63,6 +85,7 @@ const removeList = async (path) => {
 export const jldb = {
 	push,
 	fetchList,
+	updateItem,
 	removeItem,
 	removeList,
 }
