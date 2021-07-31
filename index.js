@@ -1,11 +1,28 @@
 import _ from 'lodash'
 import fse from 'fs-extra'
-import nanoid from 'nanoid'
+import { nanoid } from 'nanoid'
+
+///////////////////////////////////////////////////////////////////////////////
+// HELPERS
+///////////////////////////////////////////////////////////////////////////////
+
+const formatDateToSqlDatetime = (inputDate) => {
+  const date = inputDate ? new Date(inputDate) : new Date()
+	const dateWithOffest = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+	return dateWithOffest
+		.toISOString()
+		.slice(0, 19)
+		.replace('T', ' ')
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// METHODS
+///////////////////////////////////////////////////////////////////////////////
 
 const push = async (path, data) => {
 	const processedData = {
 		_id: nanoid(),
-		_timestamp: new Date().toISOString(),
+		_timestamp: formatDateToSqlDatetime(),
 		...data,
 	}
 	return await fse.appendFile(path, '\n' + JSON.stringify(processedData))
