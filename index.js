@@ -40,15 +40,19 @@ const fetchList = async (path) => {
 	}
 }
 
-const updateItem = async (path, id, newData) => {
+const updateItem = async (path, newData) => {
 	const list = await fetchList(path)
 
+	if (!newData._id) {
+		throw new Error(`New document must have the "_id" field!`)
+	}
+
 	const newList = list.map((obj) => {
-		if (obj._id === id) {
+		if (obj._id === newData._id) {
 			return { 
 				_id: obj._id,  
 				_timestamp: obj._timestamp,
-				...newData 
+				...newData,
 			}
 		} else {
 			return obj
